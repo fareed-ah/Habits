@@ -19,5 +19,4 @@ I hope to add the following features in the coming weeks:
 ## Demo
 View the demo video in the main directory of the repo for a demo!!
 
-![MainScreen](MainScreen.png =250x250)
-<img src="MainScreen.png" width="256" height="256" title="mainScreen">
+<img src="MainScreen.png" width="256" height="456" title="mainScreen">
