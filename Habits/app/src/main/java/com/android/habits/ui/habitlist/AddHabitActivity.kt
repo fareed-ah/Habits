@@ -24,6 +24,7 @@ class AddHabitActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_habit)
 
         binding.submitFab.setOnClickListener { switchToHabitListScreen() }
+        setTitle("Add Task")
     }
 
     private fun switchToHabitListScreen() {

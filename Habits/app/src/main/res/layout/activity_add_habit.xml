@@ -12,38 +12,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/taskNamePrompt"
+                    android:text="What is a habit you want to maintain?"/>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/habitNameLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:hint="Task Name"
-                    app:layout_constraintBottom_toTopOf="@id/habitAmountLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_below="@id/taskNamePrompt"
+                    android:hint="Habit Name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/habitName"
+                        android:inputType="text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/taskTargetPrompt"
+                    android:layout_below="@id/habitNameLayout"
+                    android:text="How many times do you want to complete this habit?"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/habitAmountLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/habitNameLayout"
-                    android:layout_marginBottom="616dp"
-                    android:hint="Required Completions"
+                    android:layout_below="@+id/taskTargetPrompt"
+                    android:hint="Target"
                     app:layout_constraintTop_toBottomOf="@+id/habitNameLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/habitAmount"
                         android:layout_width="match_parent"
+                        android:inputType="number"
                         android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
