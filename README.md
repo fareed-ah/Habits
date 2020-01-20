@@ -17,6 +17,6 @@ I hope to add the following features in the coming weeks:
 - Follow TDD and write tests using Mockito
 
 ## Demo
-View the demo video in the main directory of the repo for a demo!!
+View the demo video in the main directory of the repo for a demo!
 
 <img src="MainScreen.png" width="256" height="456" title="mainScreen">
