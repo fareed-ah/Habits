@@ -19,4 +19,4 @@ I hope to add the following features in the coming weeks:
 ## Demo
 View the demo video in the main directory of the repo for a demo!!
 
-![MainScreen](MainScreen.png = 250x250)
+![MainScreen](MainScreen.png =250x250)
