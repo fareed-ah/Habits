@@ -37,7 +37,8 @@ class HabitsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_habits, container, false)
+            inflater, R.layout.fragment_habits, container, false
+        )
         return binding.root
     }
 
@@ -50,21 +51,26 @@ class HabitsFragment : Fragment() {
         habitRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = HabitListAdapter(requireContext(), this::updateHabit, this::deleteHabit)
         habitRecyclerView.adapter = adapter
-        habitRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL))
+        habitRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
 
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(requireContext(),adapter))
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(requireContext(), adapter))
         itemTouchHelper.attachToRecyclerView(habitRecyclerView)
 
         viewModel.allHabits.observe(this, Observer { habitData ->
-           habitData?.let { displayHabits(it)}
+            habitData?.let { displayHabits(it) }
         })
 
         binding.fab.setOnClickListener {
             switchToAddHabitScreen()
         }
 
-        binding.swipeContainer.setOnRefreshListener {  binding.swipeContainer.isRefreshing = false }
+        binding.swipeContainer.setOnRefreshListener { binding.swipeContainer.isRefreshing = false }
 
     }
 
@@ -73,14 +79,15 @@ class HabitsFragment : Fragment() {
 
         if (data?.getStringExtra(AddHabitActivity.HABIT_NAME_EXTRA) != null) {
             val name: String = data.getStringExtra(AddHabitActivity.HABIT_NAME_EXTRA)
-            val completions: Int = data.getIntExtra(AddHabitActivity.HABIT_COMPLETIONS,1)
-            addHabit(Habit(name,0,completions))
+            val completions: Int = data.getIntExtra(AddHabitActivity.HABIT_COMPLETIONS, 1)
+            addHabit(Habit(name, 0, completions))
         }
 
     }
+
     private fun switchToAddHabitScreen() {
-            val intent = Intent(requireContext(), AddHabitActivity::class.java)
-            startActivityForResult(intent,AddHabitActivity.ADD_HABIT_REQUEST_CODE)
+        val intent = Intent(requireContext(), AddHabitActivity::class.java)
+        startActivityForResult(intent, AddHabitActivity.ADD_HABIT_REQUEST_CODE)
     }
 
     override fun onAttach(context: Context) {
@@ -88,28 +95,24 @@ class HabitsFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun addHabit(habit:Habit){
-        //val habit = Habit(binding.habitName.text.toString(), 0,5)
+    private fun addHabit(habit: Habit) {
         viewModel.addHabit(habit)
-        Toast.makeText(requireContext(), "Fragment:add new habit!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun deleteAllHabits(){
+    private fun deleteAllHabits() {
         viewModel.deleteAll()
     }
 
-    private fun displayHabits(habitsList:List<Habit>){
+    private fun displayHabits(habitsList: List<Habit>) {
         adapter.setHabits(habitsList)
     }
 
-    private fun updateHabit(habit:Habit){
+    private fun updateHabit(habit: Habit) {
         viewModel.updateHabitProgress(habit)
-        Toast.makeText(requireContext(), "Updated habit!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun deleteHabit(habit:Habit){
+    private fun deleteHabit(habit: Habit) {
         viewModel.deleteHabit(habit)
-        Toast.makeText(requireContext(), "Deleted habit!", Toast.LENGTH_SHORT).show()
     }
 
 }
