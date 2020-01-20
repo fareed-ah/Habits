@@ -16,3 +16,5 @@ I hope to add the following features in the coming weeks:
 - Remote database(possibly Firebase or MongoDb), if needed will use RxJava and Retrofit to fetch and post.
 - Follow TDD and write tests using Mockito
 
+## Demo
+View the demo video in the main directory of the repo for a demo!!
