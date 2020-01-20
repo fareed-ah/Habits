@@ -79,4 +79,7 @@ dependencies {
 
     // Material Design
     implementation 'com.google.android.material:material:1.2.0-alpha03'
+
+    // Swipe to Refresh ReccylerView
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }

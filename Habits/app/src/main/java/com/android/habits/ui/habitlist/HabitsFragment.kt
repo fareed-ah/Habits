@@ -1,6 +1,7 @@
 package com.android.habits.ui.habitlist
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.habits.R
 import com.android.habits.dagger.ViewModelFactory
 import com.android.habits.databinding.FragmentHabitsBinding
@@ -54,11 +56,31 @@ class HabitsFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(requireContext(),adapter))
         itemTouchHelper.attachToRecyclerView(habitRecyclerView)
 
-        binding.saveBtn.setOnClickListener{addHabit()}
-        binding.deleteHabitsBtn.setOnClickListener{deleteAllHabits()}
         viewModel.allHabits.observe(this, Observer { habitData ->
            habitData?.let { displayHabits(it)}
         })
+
+        binding.fab.setOnClickListener {
+            switchToAddHabitScreen()
+        }
+
+        binding.swipeContainer.setOnRefreshListener {  binding.swipeContainer.isRefreshing = false }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data?.getStringExtra(AddHabitActivity.HABIT_NAME_EXTRA) != null) {
+            val name: String = data.getStringExtra(AddHabitActivity.HABIT_NAME_EXTRA)
+            val completions: Int = data.getIntExtra(AddHabitActivity.HABIT_COMPLETIONS,1)
+            addHabit(Habit(name,0,completions))
+        }
+
+    }
+    private fun switchToAddHabitScreen() {
+            val intent = Intent(requireContext(), AddHabitActivity::class.java)
+            startActivityForResult(intent,AddHabitActivity.ADD_HABIT_REQUEST_CODE)
     }
 
     override fun onAttach(context: Context) {
@@ -66,8 +88,8 @@ class HabitsFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun addHabit(){
-        val habit = Habit(binding.habitName.text.toString(), 0,5)
+    private fun addHabit(habit:Habit){
+        //val habit = Habit(binding.habitName.text.toString(), 0,5)
         viewModel.addHabit(habit)
         Toast.makeText(requireContext(), "Fragment:add new habit!", Toast.LENGTH_SHORT).show()
     }
